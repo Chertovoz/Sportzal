@@ -1,0 +1,133 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Gym_kursovaya.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+        x:Class="Gym_kursovaya.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Gym_kursovaya">
+
+    
+    
+    <TabControl>
+        <TabItem Header = "Клиенты">
+            <Grid RowDefinitions="Auto,*" HorizontalAlignment="Center">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Button Content="Отметить присутствующих" Command="{Binding MarkClientsCommand}"/>
+                        <!--
+                        <ComboBox>
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding }" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        -->
+                    </StackPanel>
+                    <DataGrid Grid.Row="1" IsReadOnly="True" ItemsSource="{Binding ClientViewModel.ShowClients}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Абонемент" Binding="{Binding ScheduleName}"/>
+                            <DataGridTextColumn Header="Тренер" Binding="{Binding TrainerName}"/>
+                            <DataGridTextColumn Header="Программа" Binding="{Binding ProgrammTitles}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+        </TabItem>
+        
+        <!--  таб добавления   -->
+        
+        <TabItem Header="Добавление">
+            <TabControl>
+                <!--   Клиенты  начало-->
+                <TabItem Header = "Клиенты">
+                    <Grid RowDefinitions="Auto,*" HorizontalAlignment="Center">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <Button Content="Добавить клиента" Command="{Binding  ClientViewModel.CreateClientCommand}"/>
+                            <Button Content="Редактировать клиента" Command="{Binding ClientViewModel.EditClientCommand}"/>
+                            <Button Content="Удалить клиента" Command="{Binding ClientViewModel.DeleteClientCommand}"/>
+                        </StackPanel>
+                        <DataGrid Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding ClientViewModel.SelectedClient}" ItemsSource="{Binding ClientViewModel.ShowClients}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Пол" Binding="{Binding Gender}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <!--   Клиенты  конец-->
+                
+                <!--   Тренеры  начало-->
+                <TabItem Header="Тренеры">
+                    <Grid RowDefinitions="Auto,*" HorizontalAlignment="Center">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <Button Content="Добавить тренера" Command="{Binding TrainerViewModel.AddTrainerCommand}"/>
+                            <Button Content="Редактировать тренера" Command="{Binding TrainerViewModel.EditTrainerCommand}"/>
+                            <Button Content="Удалить тренера" Command="{Binding TrainerViewModel.DeleteTrainerCommand}"/>
+                        </StackPanel>
+                        <DataGrid Grid.Row="1" IsReadOnly="True" SelectedItem="{Binding TrainerViewModel.SelectedTrainer}" ItemsSource="{Binding TrainerViewModel.TrainersCollection}" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Пол" Binding="{Binding Gender}"/>
+                                <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        </Grid>
+                </TabItem>
+                <!--   Тренеры  конец-->
+                <!--   Мышцы  начало-->
+                <TabItem Header="Мышцы">
+                    <Grid RowDefinitions="Auto,*" HorizontalAlignment="Center">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <Button Content="Добавить мышцы" Command="{Binding MuscleViewModel.AddMuscleCommand}"/>
+                            <Button Content="Редактировать мышцы" Command="{Binding MuscleViewModel.EditMuscleCommand}"/>
+                            <Button Content="Удалить мышцы" Command="{Binding MuscleViewModel.DeleteMuscleCommand}"/>
+                        </StackPanel>
+                        <DataGrid Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding MuscleViewModel.SelectedMuscle}" ItemsSource="{Binding MuscleViewModel.ShowMuscles}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Title}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <!--   Мышцы  конец-->
+                <!--   Программа  начало-->
+                <TabItem Header="Программы">
+                    <Grid RowDefinitions="Auto,*" HorizontalAlignment="Center">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <Button Content="Добавить программу" Command="{Binding ProgramViewModel.AddProgramCommand}"/>
+                            <Button Content="Редактировать программу" Command="{Binding ProgramViewModel.EditProgramCommand}"/>
+                            <Button Content="Удалить программу" Command="{Binding ProgramViewModel.DeleteProgramCommand}"/>
+                        </StackPanel>
+                        <DataGrid Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding ProgramViewModel.Programs}" SelectedItem="{Binding ProgramViewModel.SelectedProgram}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Title}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <!--   Расписание  начало-->
+                <TabItem Header="Расписание c тренером">
+                    <Grid RowDefinitions="Auto,*" HorizontalAlignment="Center">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <Button Content="Добавить Расписание" Command="{Binding SubscriptionViewModel.CreateSubscriptionWithTrainerCommand}"/>
+                            <Button Content="Редактировать Расписание" Command="{Binding SubscriptionViewModel.EditSubscriptionWithTrainerCommand}"/>
+                            <Button Content="Удалить Расписание" Command="{Binding ProgramViewModel.DeleteProgramCommand}"/>
+                        </StackPanel>
+                        <DataGrid Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SubscriptionViewModel.Subscriptions}" SelectedItem="{Binding SubscriptionViewModel.SelectedSubscription}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Binding="{Binding SSchedule.Title}"/>
+                                <DataGridTextColumn Header="Клиент" Binding="{Binding SClient.Name}"/>
+                                <DataGridTextColumn Header="Тренер" Binding="{Binding STrainer.Name}"/>
+                                <DataGridTextColumn Header="Валидность" Binding="{Binding ChosenSubscription.Validity}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <!--Расписание  конец-->
+            </TabControl>
+        </TabItem>
+    </TabControl>
+</Window>

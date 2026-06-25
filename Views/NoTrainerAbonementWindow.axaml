@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Gym_kursovaya.ShowModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Gym_kursovaya.Views.NoTrainerAbonementWindow"
+        x:DataType="vm:NoTrainerSubscriptionVM"
+        Title="NoTrainerAbonementWindow">
+    
+    <StackPanel HorizontalAlignment="Center">
+        <StackPanel HorizontalAlignment="Left">
+            <TextBlock Text="Имя"/>
+            <Label Content="{Binding Client.Name}"/>
+            <TextBlock Text="Пол"/>
+            <Label Content="{Binding Client.Gender}"/>
+            <TextBlock Text="Абонемент"/>
+            <Label Content="{Binding SelectedSchedule.Title}"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center">
+            <Label Content="Абонемент куплен"/>
+            <Label Content="{Binding SelectedSubscription.StartDate}"/>
+            <Label Content="Абонемент действителен"/>
+            <Label Content="{Binding SelectedSubscription.EndDate}"/>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Осталось тренировок"/>
+                    <Label Content="{Binding TrainingsLeft}"/>
+                    <TextBlock Text="Осталось дней"/>
+                    <Label Content="{Binding DaysLeft}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Window>

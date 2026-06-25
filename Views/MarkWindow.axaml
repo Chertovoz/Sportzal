@@ -1,0 +1,21 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Gym_kursovaya.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Gym_kursovaya.Views.MarkWindow"
+        x:DataType="vm:MarkClientsVM"
+        Title="MarkWindow">
+        
+        <StackPanel>
+                <DataGrid IsReadOnly="True" ItemsSource="{Binding Clients}" >
+                        <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                        </DataGrid.Columns>
+                </DataGrid>
+        </StackPanel>
+        
+        
+        
+</Window>

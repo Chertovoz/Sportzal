@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Gym_kursovaya.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Gym_kursovaya.Views.EditProgrammWindow"
+        x:DataType="vm:ProgrammEditVM"
+        Title="EditProgrammWindow">
+        
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <Grid HorizontalAlignment="Center"  ColumnDefinitions="*,*,*">
+                                <Grid Grid.Column="0" RowDefinitions="*,*">
+                                        <TextBox MaxHeight="200" Grid.Row="0" Watermark="Введите название программы" Text="{Binding Title}"/>
+                                        <TextBox Grid.Row="1" Watermark="Введите описание программы" Text="{Binding Description}"/>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                        <TextBlock Text="Мышцы"/>
+                                        <DataGrid  IsReadOnly="True" ItemsSource="{Binding Muscles}" >
+                                                <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Название мышцы" Binding="{Binding Title}"/>
+                                                </DataGrid.Columns>
+                                        </DataGrid>
+                                </Grid>
+                        <Grid Grid.Column="2">
+                                <TextBlock Text="Выбранные мышцы"/>
+                                <DataGrid  IsReadOnly="True" ItemsSource="{Binding SelectedMuscles}" >
+                                        <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Название мышцы" Binding="{Binding Title}"/>
+                                        </DataGrid.Columns>
+                                </DataGrid>
+                        </Grid>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Отменить" Command="{Binding CancelCommand}"/>
+                        <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+                </StackPanel>
+        </StackPanel>
+        
+        
+</Window>

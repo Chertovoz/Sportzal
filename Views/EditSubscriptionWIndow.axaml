@@ -1,0 +1,270 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Gym_kursovaya.ViewModels"
+        xmlns:showModels="clr-namespace:Gym_kursovaya.ShowModels"
+        xmlns:views="clr-namespace:Gym_kursovaya.Views"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Gym_kursovaya.Views.EditSubscriptionWIndow"
+        x:Name="Root"
+        x:DataType="vm:SybscriptionEditVM"
+        Title="EditSubscriptionWIndow">
+        
+       <Grid ColumnDefinitions="350,*"
+          RowDefinitions="Auto,*">
+
+        <!-- ЛЕВАЯ ПАНЕЛЬ -->
+        <Border Grid.Column="0"
+                Grid.RowSpan="2"
+                Margin="5"
+                Padding="10"
+                BorderThickness="1">
+
+            <ScrollViewer>
+
+                <StackPanel Spacing="10">
+
+                    <TextBlock Text="Редактирование абонемента" FontSize="18" FontWeight="Bold" />
+
+                    <!--  данные абонемента -->
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="4">
+                        
+                        <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Spacing="2">
+                            
+                            <TextBlock  Text="Выбранный день:" FontWeight="Bold"/>
+                            
+                            <TextBlock Text="{Binding SelectedDay.Date,StringFormat='{}{0:dd.MM.yyyy}'}" HorizontalAlignment="Center"/>
+                            
+                        </StackPanel>
+                        
+                        <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                            
+                            <TextBlock Text="Осталось тренировок:" FontWeight="Bold"/> 
+                                                    
+                            <TextBlock Text="{Binding TrainigsAmountLeft}" HorizontalAlignment="Center"/>
+                            
+                        </StackPanel>
+                        
+                    </StackPanel>
+                    
+
+                    <TextBlock Text="Статус:"
+                               FontWeight="Bold"/>
+
+                    <ComboBox ItemsSource="{Binding AvailableStatuses}"
+                              SelectedItem="{Binding SelectedStatus}"
+                              IsEnabled="{Binding SelectedDay.IsEditable}">
+                        
+                        <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Title}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    
+
+                    <TextBlock Text="Программы:" FontWeight="Bold"/>
+
+                    <ListBox ItemsSource="{Binding SelectedDay.Programs}" SelectedItem="{Binding SelectedProgramm}" IsEnabled="{Binding SelectedDay.IsEditable}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Title}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <ComboBox ItemsSource="{Binding AllPrograms}"
+                              SelectedItem="{Binding SelectedProgram}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Title}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <Button Content="Добавить программу"
+                            Command="{Binding AddProgramCommand}"/>
+
+                    <Button Content="Удалить программу"
+                            Command="{Binding RemoveProgramCommand}"/>
+                    
+                    <TextBlock Text="Выберите клиента"/>
+                    <ComboBox ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Text="Выберите тренера"/>
+                    <ComboBox ItemsSource="{Binding Trainers}" SelectedItem="{Binding SelectedTrainer}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Text="Выберите абонемент"/>
+                    <ComboBox ItemsSource="{Binding Schedules}" SelectedItem="{Binding SelectedSchedule}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Title}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Content="Сохранить абонемент" Command="{Binding SaveScheduleCommand}"/>
+                </StackPanel>
+
+            </ScrollViewer>
+
+        </Border>
+
+        <!-- переключение -->
+
+        <Grid Grid.Column="1"
+              Grid.Row="0"
+              ColumnDefinitions="Auto,*,Auto"
+              Margin="5">
+
+            <Button Grid.Column="0" Content="◀" Command="{Binding PastMonthCommand}"/>
+
+            <TextBlock Grid.Column="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Text="{Binding CurrentMonthTitle}"/>
+
+            <Button Grid.Column="2" Content="▶" Command="{Binding NextMonthCommand}"/>
+
+        </Grid>
+
+        <!-- КАЛЕНДАРЬ -->
+
+        <Border Grid.Column="1"
+                Grid.Row="1"
+                Margin="5"
+                BorderThickness="1">
+
+            <Grid RowDefinitions="Auto,*">
+
+                <!-- ДНИ НЕДЕЛИ -->
+
+                <UniformGrid Grid.Row="0" Columns="7">
+
+                    <Border BorderThickness="0.5">
+                        <TextBlock HorizontalAlignment="Center" Text="Пн"/>
+                    </Border>
+
+                    <Border BorderThickness="0.5">
+                        <TextBlock HorizontalAlignment="Center" Text="Вт"/>
+                    </Border>
+
+                    <Border BorderThickness="0.5">
+                        <TextBlock HorizontalAlignment="Center" Text="Ср"/>
+                    </Border>
+
+                    <Border BorderThickness="0.5">
+                        <TextBlock HorizontalAlignment="Center" Text="Чт"/>
+                    </Border>
+
+                    <Border BorderThickness="0.5">
+                        <TextBlock HorizontalAlignment="Center" Text="Пт"/>
+                    </Border>
+
+                    <Border BorderThickness="0.5">
+                        <TextBlock HorizontalAlignment="Center" Text="Сб"/>
+                    </Border>
+
+                    <Border BorderThickness="0.5">
+                        <TextBlock HorizontalAlignment="Center" Text="Вс"/>
+                    </Border>
+
+                </UniformGrid>
+
+                <!-- дни -->
+
+                <ListBox Grid.Row="1"
+                         BorderThickness="0"
+                         ItemsSource="{Binding AbonementDays}"
+                         SelectedItem="{Binding SelectedDay}">
+
+                    <ListBox.Styles>
+
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="0.2"/>
+                        </Style>
+
+                    </ListBox.Styles>
+
+                    <ListBox.ItemsPanel>
+
+                        <ItemsPanelTemplate>
+
+                            <UniformGrid Rows="6"
+                                         Columns="7"/>
+
+                        </ItemsPanelTemplate>
+
+                    </ListBox.ItemsPanel>
+
+                    <ListBox.ItemTemplate>
+
+                        <DataTemplate x:DataType="showModels:FullExercise">
+
+                            <Border BorderThickness="0.5"
+                                    Padding="4"
+                                    BorderBrush="Black">
+
+                                <StackPanel Spacing="2" >
+
+                                    <!-- число -->
+
+                                    <TextBlock HorizontalAlignment="Right"
+                                               FontWeight="Bold"
+                                               Text="{Binding DayNumber}"
+                                               />
+
+                                    <!-- статус -->
+
+                                    <TextBlock FontSize="11"
+                                               Text="{Binding Status.Title}"/>
+
+                                    <!-- программы -->
+
+                                    <ItemsControl ItemsSource="{Binding Programs}">
+
+                                        <ItemsControl.ItemTemplate>
+
+                                            <DataTemplate>
+
+                                                <TextBlock FontSize="10"
+                                                           Text="{Binding Title}"/>
+
+                                            </DataTemplate>
+
+                                        </ItemsControl.ItemTemplate>
+
+                                    </ItemsControl>
+
+                                </StackPanel>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Window>

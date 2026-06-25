@@ -1,0 +1,23 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Gym_kursovaya.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Gym_kursovaya.Views.EditTrainerWindow"
+        x:DataType="vm:TrainerEditVM"
+        Title="EditTrainerWindow">
+        
+        <StackPanel HorizontalAlignment="Center">
+                <TextBlock Text="Имя тренера"/>
+                <TextBox  Text="{Binding Name}"/>     
+                <TextBlock Text="Пол(одна буква)"/>
+                <TextBox  Text="{Binding Gender}"/>
+                <TextBlock Text="Цена"/>
+                <TextBox  Text="{Binding Price}"/>
+                <StackPanel HorizontalAlignment="Center">
+                        <Button Content="Отменить" Command="{Binding CancelCommand}"/>
+                        <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+                </StackPanel>
+        </StackPanel>
+</Window>
