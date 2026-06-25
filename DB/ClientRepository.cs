@@ -17,7 +17,7 @@ public class ClientRepository: BaseRepository<Client>
     {
         _connection.Open();
         List<Client> clients= new List<Client>();
-        string sql = "SELECT c.*\nFROM Client c\nWHERE NOT EXISTS\n(\n    SELECT 1\n    FROM Subscription s\n    WHERE s.Client_id  = c.Id\n      AND s.Validity = 1\n);";
+        string sql = "SELECT c.*\nFROM client c\nWHERE NOT EXISTS\n(\n    SELECT 1\n    FROM Subscription s\n    WHERE s.Client_id  = c.Id\n      AND s.Validity = 1\n);";
         using var mc = new MySqlCommand(sql, _connection) ;
         using var reader = mc.ExecuteReader();
         while (reader.Read())
@@ -37,7 +37,7 @@ public class ClientRepository: BaseRepository<Client>
     {
         _connection.Open();
         List<Client> clients= new List<Client>();
-        string sql = "Select c.Id, c.Name, c.Gender\nFrom Client c\ninner join subscription s on s.Client_id = c.Id \nwhere s.Validity = 1";
+        string sql = "Select c.Id, c.Name, c.Gender\nFrom client c\ninner join subscription s on s.Client_id = c.Id \nwhere s.Validity = 1";
         using var mc = new MySqlCommand(sql, _connection) ;
         using var reader = mc.ExecuteReader();
         while (reader.Read())

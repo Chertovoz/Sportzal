@@ -17,7 +17,7 @@ public class MuscleRepository: BaseRepository<Muscle>
     {
         _connection.Open();
         List<Muscle> muscles = new List<Muscle>();
-        string sql = "select * from Muscle";
+        string sql = "select * from muscle";
         using var mc = new MySqlCommand(sql, _connection);
         using var reader = mc.ExecuteReader();
         while (reader.Read())
@@ -35,7 +35,7 @@ public class MuscleRepository: BaseRepository<Muscle>
     {
         _connection.Open();
         Muscle muscle = new Muscle();
-        string sql = "Select m.Title From Muscle m where m.Id = " + id;
+        string sql = "Select m.Title From muscle m where m.Id = " + id;
         using var mc = new MySqlCommand(sql, _connection);
         using var reader = mc.ExecuteReader();
         if (reader.Read())
@@ -51,7 +51,7 @@ public class MuscleRepository: BaseRepository<Muscle>
     public override void Insert(Muscle entity)
     {
         _connection.Open();
-        string sql = "Insert into Muscle Values (0,@Title)";
+        string sql = "Insert into muscle Values (0,@Title)";
         try
         {
             using var mc = new MySqlCommand(sql, _connection);
@@ -71,7 +71,7 @@ public class MuscleRepository: BaseRepository<Muscle>
     public override void Update(Muscle entity)
     {
         _connection.Open();
-        string sql="Update Muscle Set Title = @Title Where Id =" +  entity.Id;
+        string sql="Update muscle Set Title = @Title Where Id =" +  entity.Id;
         try
         {
             using var mc = new MySqlCommand(sql, _connection);
@@ -90,7 +90,7 @@ public class MuscleRepository: BaseRepository<Muscle>
     public override void Delete(Muscle entity)
     {
         _connection.Open();
-        string sql = "Delete From Muscle Where Id ="+ entity.Id;
+        string sql = "Delete From muscle Where Id ="+ entity.Id;
         try
         {
             using var mc =new MySqlCommand(sql, _connection);

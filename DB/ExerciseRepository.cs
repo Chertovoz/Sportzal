@@ -74,7 +74,7 @@ public class ExerciseRepository: BaseRepository<Exercise>
     {
         _connection.Open();
         Exercise exercise = new Exercise();
-        string sql = "Select d.Id, d.Date, d.Status_id, d.Subscription_Id From Exercise d where d.Id = " + id;
+        string sql = "Select d.Id, d.Date, d.Status_id, d.Subscription_Id From exercise d where d.Id = " + id;
         using var mc = new MySqlCommand(sql, _connection);
         using var reader = mc.ExecuteReader();
         if (reader.Read())
@@ -91,7 +91,7 @@ public class ExerciseRepository: BaseRepository<Exercise>
     public override void Insert(Exercise entity)
     {
         _connection.Open();
-        string sql1 = "Insert into Exercise Values (0,@Status_id, @Subscription_id,@Date)";
+        string sql1 = "Insert into exercise Values (0,@Status_id, @Subscription_id,@Date)";
         try
         {
             using var mc = new MySqlCommand(sql1, _connection);
@@ -154,7 +154,7 @@ public class ExerciseRepository: BaseRepository<Exercise>
     public override void Delete(Exercise entity)
     {
         _connection.Open();
-        string sql = "Delete From Exercise Where Id ="+ entity.Id;
+        string sql = "Delete From exercise Where Id ="+ entity.Id;
         try
         {
             using var mc =new MySqlCommand(sql, _connection);
@@ -178,7 +178,7 @@ public class ExerciseRepository: BaseRepository<Exercise>
         _connection.Open();
         List<Exercise> days = new List<Exercise>();
         string sql =
-            "Select d.Status_id, d.Subscription_id, d.Date From Exercise d  inner join Subscription s on d.Subscription_id = " +
+            "Select d.Status_id, d.Subscription_id, d.Date From exercise d  inner join Subscription s on d.Subscription_id = " +
             subscriptionId;
         using var mc = new MySqlCommand(sql, _connection);
         using var reader = mc.ExecuteReader();
@@ -199,7 +199,7 @@ public class ExerciseRepository: BaseRepository<Exercise>
     public void DeleteAllByClientId(int clientId)
     {
         _connection.Open();
-        string sql = "Delete from Exercise Where Client_id =" + clientId;
+        string sql = "Delete from exercise Where Client_id =" + clientId;
         try
         {
             using var mc =new MySqlCommand(sql, _connection);

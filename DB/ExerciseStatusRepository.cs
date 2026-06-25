@@ -17,7 +17,7 @@ public class ExerciseStatusRepository: BaseRepository<ExerciseStatus>
     {
         _connection.Open();
         List<ExerciseStatus> day_statuses = new List<ExerciseStatus>();
-        string sql = "select * from Exercise_status";
+        string sql = "select * from exercise_status";
         using var mc = new MySqlCommand(sql, _connection);
         using var reader = mc.ExecuteReader();
         while (reader.Read())
@@ -35,7 +35,7 @@ public class ExerciseStatusRepository: BaseRepository<ExerciseStatus>
     {
         _connection.Open();
         ExerciseStatus exerciseStatus = new ExerciseStatus();
-        string sql = "Select ds.Title From Exercise_status ds where ds.Id = " + id;
+        string sql = "Select ds.Title From exercise_status ds where ds.Id = " + id;
         using var mc = new MySqlCommand(sql, _connection);
         using var reader = mc.ExecuteReader();
         if (reader.Read())
@@ -50,7 +50,7 @@ public class ExerciseStatusRepository: BaseRepository<ExerciseStatus>
     public override void Insert(ExerciseStatus entity)
     {
         _connection.Open();
-        string sql = "Insert into Exercise_status Values (0,@Title)";
+        string sql = "Insert into exercise_status Values (0,@Title)";
         try
         {
             using var mc = new MySqlCommand(sql, _connection);
@@ -70,7 +70,7 @@ public class ExerciseStatusRepository: BaseRepository<ExerciseStatus>
     public override void Update(ExerciseStatus entity)
     {
         _connection.Open();
-        string sql="Update Exercise_status Set Title = @Title Where Id =" +  entity.Id;
+        string sql="Update exercise_status Set Title = @Title Where Id =" +  entity.Id;
         try
         {
             using var mc = new MySqlCommand(sql, _connection);
@@ -89,7 +89,7 @@ public class ExerciseStatusRepository: BaseRepository<ExerciseStatus>
     public override void Delete(ExerciseStatus entity)
     {
         _connection.Open();
-        string sql = "Delete From Exercise_status Where Id ="+ entity.Id;
+        string sql = "Delete From exercise_status Where Id ="+ entity.Id;
         try
         {
             using var mc =new MySqlCommand(sql, _connection);

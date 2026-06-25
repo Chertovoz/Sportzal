@@ -20,7 +20,7 @@ public class ProgrammRepository: BaseRepository<Programm>
     {
         _connection.Open();
         List<Programm> programs = new List<Programm>();
-        string sql = "select * from Program";
+        string sql = "select * from program";
         using var mc = new MySqlCommand(sql, _connection);
         using var reader = mc.ExecuteReader();
         while (reader.Read())
@@ -40,7 +40,7 @@ public class ProgrammRepository: BaseRepository<Programm>
     {
         _connection.Open();
         Programm programm = new Programm();
-        string sql = "Select p.Title, p.Description From Program p where p.Id = " + id;
+        string sql = "Select p.Title, p.Description From program p where p.Id = " + id;
         using var mc = new MySqlCommand(sql, _connection);
         using var reader = mc.ExecuteReader();
         if (reader.Read())
@@ -57,7 +57,7 @@ public class ProgrammRepository: BaseRepository<Programm>
     public override void Insert(Programm entity)
     {
         _connection.Open();
-        string sql = "Insert into Program Values (0,@Title, @Description)";
+        string sql = "Insert into program Values (0,@Title, @Description)";
         try
         {
             using var mc = new MySqlCommand(sql, _connection);
@@ -77,7 +77,7 @@ public class ProgrammRepository: BaseRepository<Programm>
     public override void Update(Programm entity)
     {
         _connection.Open();
-        string sql="Update Program Set Title = @Title, Description = @Description Where Id =" +  entity.Id;
+        string sql="Update program Set Title = @Title, Description = @Description Where Id =" +  entity.Id;
         try
         {
             using var mc = new MySqlCommand(sql, _connection);
@@ -98,7 +98,7 @@ public class ProgrammRepository: BaseRepository<Programm>
     public override void Delete(Programm entity)
     {
         _connection.Open();
-        string sql = "Delete From Program Where Id ="+ entity.Id;
+        string sql = "Delete From program Where Id ="+ entity.Id;
         try
         {
             using var mc =new MySqlCommand(sql, _connection);
@@ -116,7 +116,7 @@ public class ProgrammRepository: BaseRepository<Programm>
     {
         _connection.Open();
         List<Programm> programs = new List<Programm>();
-        string sql = "Select m.Title , m.Description, m.Id \nFrom Program m\ninner join exercise_program ep on m.Id = ep.Program_id\ninner join exercise e on ep.Exercise_id = e.Id\ninner join subscription s on e.Subscription_id = s.Id\n inner join client c on c.Id = " + clientId +"  where e.Date = CURDATE();";
+        string sql = "Select m.Title , m.Description, m.Id \nFrom program m\ninner join exercise_program ep on m.Id = ep.Program_id\ninner join exercise e on ep.Exercise_id = e.Id\ninner join subscription s on e.Subscription_id = s.Id\n inner join client c on c.Id = " + clientId +"  where e.Date = CURDATE();";
         try
         {
             using var mc =  new MySqlCommand(sql, _connection);
